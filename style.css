@@ -1,0 +1,415 @@
+/* ============================================================
+   نظام التصميم
+   لوحة الألوان: ورقي بارد (--bg) + حبر غامق (--ink) + لون JS كهرماني مطفّى
+   ولون Python أزرق مطفّى للتمييز بين القسمين.
+   خطوط: "IBM Plex Sans Arabic" للواجهة، "JetBrains Mono" للكود.
+   ============================================================ */
+
+:root {
+  --bg: #F5F6F3;
+  --panel: #FFFFFF;
+  --panel-soft: #EFF1EC;
+  --ink: #1B221F;
+  --ink-soft: #5B6560;
+  --border: #DEE3DA;
+  --border-strong: #C7CEC2;
+
+  --accent-js: #B9791F;
+  --accent-js-soft: #F3E4CA;
+  --accent-py: #2F5FA6;
+  --accent-py-soft: #DDE7F5;
+
+  --code-bg: #1E2622;
+  --code-ink: #E7ECE9;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-1: 0 1px 2px rgba(20, 30, 25, 0.06);
+
+  --font-ui: "IBM Plex Sans Arabic", "Tahoma", sans-serif;
+  --font-code: "JetBrains Mono", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  direction: rtl;
+}
+
+body {
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ---------- الشريط العلوي ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.brand {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  flex: 1;
+  min-width: 160px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb .crumb {
+  color: var(--ink-soft);
+}
+
+.breadcrumb .crumb.is-link {
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.breadcrumb .crumb.is-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: var(--border-strong);
+}
+
+.search-wrap {
+  min-width: 220px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--panel-soft);
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+#searchInput:focus {
+  outline: 2px solid var(--accent-py);
+  outline-offset: 1px;
+  background: var(--panel);
+}
+
+/* ---------- المحتوى الرئيسي ---------- */
+
+#app-main {
+  flex: 1;
+  padding: 32px 24px 64px;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- الصفحة الرئيسية ---------- */
+
+.home-hero {
+  margin-bottom: 32px;
+}
+
+.home-hero h1 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.home-hero p {
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 560px;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 620px) {
+  .section-grid { grid-template-columns: 1fr; }
+}
+
+.section-card {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  text-align: right;
+  border-top: 3px solid var(--accent-js);
+}
+
+.section-card[data-section="python"] {
+  border-top-color: var(--accent-py);
+}
+
+.section-card h2 {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
+}
+
+.section-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.section-card .count {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- شبكة المستويات/الفصول ---------- */
+
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+}
+
+.unit-chip {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.unit-chip:hover {
+  border-color: var(--border-strong);
+  background: var(--panel-soft);
+}
+
+.unit-chip .num {
+  display: block;
+  font-family: var(--font-code);
+  font-size: 1.15rem;
+  margin-top: 2px;
+}
+
+.section-heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- صفحة وحدة (مستوى/فصل) ---------- */
+
+.unit-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 18px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.unit-toolbar h1 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.unit-toolbar .meta {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.question-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.question-card .q-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--panel-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.question-card .q-number {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.question-card .q-text {
+  padding: 10px 16px 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.code-box {
+  position: relative;
+}
+
+.code-box pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--code-bg);
+  color: var(--code-ink);
+  font-family: var(--font-code);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  direction: ltr;
+  text-align: left;
+}
+
+.code-box code {
+  font-family: var(--font-code);
+  white-space: pre;
+}
+
+/* توحيد خلفية تلوين الأكواد (highlight.js) مع خلفية الصندوق */
+.code-box .hljs {
+  background: transparent;
+  padding: 0;
+}
+
+.copy-row {
+  display: flex;
+  justify-content: flex-start;
+  direction: ltr;
+  padding: 8px 16px;
+  background: var(--code-bg);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--code-ink);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.copy-btn.copied {
+  border-color: #4FAE7A;
+  color: #A9E3C4;
+}
+
+.empty-state {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+}
+
+/* ---------- تلميح الانتقال السريع من الرئيسية ---------- */
+
+.jump-hint {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.jump-results {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jump-result-btn {
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.88rem;
+}
+
+.jump-result-btn:hover {
+  background: var(--panel-soft);
+}
+
+/* ---------- إتاحة ---------- */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent-py);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+footer.site-footer {
+  text-align: center;
+  padding: 18px;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
